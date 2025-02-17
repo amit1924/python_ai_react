@@ -33,7 +33,7 @@ export default function ChatBot() {
         const formData = new FormData();
         formData.append("file", image);
         const response = await axios.post(
-          "http://localhost:8000/image", // Updated URL to the FastAPI image processing endpoint
+          "https://python-ai-react.onrender.com/image", // Updated URL to the FastAPI image processing endpoint
           formData,
           {
             headers: {
@@ -49,9 +49,12 @@ export default function ChatBot() {
 
         setMessages((prevMessages) => [...prevMessages, botMessage]);
       } else {
-        const response = await axios.post("http://localhost:8000/chat", {
-          message: input,
-        });
+        const response = await axios.post(
+          "https://python-ai-react.onrender.com/chat",
+          {
+            message: input,
+          }
+        );
 
         const botMessage = response.data.response;
         console.log(botMessage);
