@@ -1,4 +1,4 @@
-# from fastapi import FastAPI, HTTPException
+# from fastapi import FastAPI, HTTPException, File, UploadFile
 # from pydantic import BaseModel
 # import sqlite3
 # import google.generativeai as genai
@@ -14,6 +14,12 @@
 
 # # Initialize FastAPI app
 # app = FastAPI()
+
+
+# @app.get("/")
+# def read_root():
+#     return {"message": "Hello World"}
+
 
 # # Enable CORS for frontend connection
 # app.add_middleware(
@@ -146,6 +152,25 @@
 #         raise HTTPException(status_code=500, detail="Error generating bot response")
 
 
+# # Endpoint to process the image and generate a response
+# @app.post("/image")
+# async def process_image(file: UploadFile = File(...)):
+#     try:
+#         # Read the uploaded image
+#         image_bytes = await file.read()
+#         image = Image.open(io.BytesIO(image_bytes))
+
+#         # Process the image with the Gemini API using the correct model
+#         model = genai.GenerativeModel("gemini-2.0-flash")
+#         response = model.generate_content(contents=["What is this image?", image])
+
+#         # Return the response text
+#         return {"response": response.text}
+#     except Exception as e:
+#         print(f"Error processing image: {e}")
+#         raise HTTPException(status_code=500, detail="Error processing the image")
+
+
 # # Fetch chat history
 # @app.get("/history")
 # async def history():
@@ -175,6 +200,7 @@ genai.configure(api_key=GEMINI_API_KEY)
 
 # Initialize FastAPI app
 app = FastAPI()
+
 
 # Enable CORS for frontend connection
 app.add_middleware(
@@ -294,7 +320,9 @@ async def chat(request: ChatRequest):
             store_user_info("hobby", hobby)
             response_text = f"Nice! You like {hobby}."
         else:
-            model = genai.GenerativeModel("gemini-2.0-flash")
+            model = genai.GenerativeModel(
+                "gemini-2.0-flash"
+            )  # Confirm this call is correct
             response = model.generate_content(context)
             response_text = response.text
 
@@ -316,7 +344,9 @@ async def process_image(file: UploadFile = File(...)):
         image = Image.open(io.BytesIO(image_bytes))
 
         # Process the image with the Gemini API using the correct model
-        model = genai.GenerativeModel("gemini-2.0-flash")
+        model = genai.GenerativeModel(
+            "gemini-2.0-flash"
+        )  # Confirm this call is correct
         response = model.generate_content(contents=["What is this image?", image])
 
         # Return the response text
@@ -330,6 +360,11 @@ async def process_image(file: UploadFile = File(...)):
 @app.get("/history")
 async def history():
     return {"history": get_chat_history()}
+
+
+@app.get("/home")
+def read_root():
+    return {"message": "Hello World"}
 
 
 # Run server
