@@ -114,7 +114,7 @@ export default function ChatBot() {
         animate={{ scale: 1 }}
         transition={{ duration: 0.5 }}
       >
-        <div className="h-[480px] lg:h-[500px] overflow-y-auto mb-4 p-4 border border-gray-700 rounded-lg bg-gray-900 shadow-inner">
+        <div className="h-[480px] lg:h-[500px] overflow-y-auto mb-4 p-2 lg:p-4 border border-gray-700 rounded-lg bg-gray-900 shadow-inner">
           {messages.map((msg, index) => (
             <motion.div
               key={index}
@@ -135,10 +135,10 @@ export default function ChatBot() {
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            className="flex-1 p-4 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all pr-12"
+            className="flex-1 p-2 lg:p-4 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all pr-12"
             placeholder="Type your message..."
           />
-          <label className="absolute right-[7rem] top-2 cursor-pointer">
+          <label className="absolute right-[4rem] lg:right-[7rem] top-1 lg:top-2 cursor-pointer">
             <input type="file" className="hidden" onChange={handleFileChange} />
             <span className="text-white text-2xl">📷</span>
           </label>
@@ -146,7 +146,7 @@ export default function ChatBot() {
           <motion.button
             onClick={sendMessage}
             disabled={loading || isTyping}
-            className="px-6 py-3 bg-blue-500 hover:bg-blue-600 rounded-lg disabled:bg-gray-500 text-lg font-semibold transition-all"
+            className="px-2 py-1 md:px-4 lg:px-6 lg:py-3 bg-blue-500 hover:bg-blue-600 rounded-lg disabled:bg-gray-500 text-lg font-semibold transition-all"
           >
             {loading ? (
               <motion.div className="w-6 h-6 border-4 border-t-4 border-white border-solid rounded-full animate-spin" />
