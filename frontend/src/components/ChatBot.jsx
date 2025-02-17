@@ -90,6 +90,7 @@ export default function ChatBot() {
       setIsTyping(false); // Stop typing effect when done
     } catch (error) {
       console.error("Error sending message:", error);
+      setError("There was an error with your request.");
     }
     setInput("");
     setLoading(false);
