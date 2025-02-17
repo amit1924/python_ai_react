@@ -3,4 +3,3 @@ uvicorn
 pydantic
 google-generativeai
 pillow
-sqlite3
